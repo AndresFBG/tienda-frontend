@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import './NuevoProductoPage.css';
+import StatusMessage from '../components/StatusMessage';
+import { formatNumberInput, parseNumberInput } from '../utils/numberFormat';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -12,12 +14,13 @@ function NuevoProductoPage() {
     precioVenta: '',
     precioCompra: '',
   });
+  const [mensaje, setMensaje] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: name === 'precioVenta' || name === 'precioCompra' ? formatNumberInput(value) : value,
     }));
   };
 
@@ -27,14 +30,14 @@ function NuevoProductoPage() {
     const producto = {
       nombre: form.nombre.trim(),
       codigo: form.codigo.trim(),
-      precio_venta: Number(form.precioVenta),
-      precio_compra: Number(form.precioCompra),
+      precio_venta: parseNumberInput(form.precioVenta),
+      precio_compra: parseNumberInput(form.precioCompra),
       stock: Number(form.stock),
       categoria: form.categoria,
     };
 
     if (!producto.nombre || !producto.precio_venta || !producto.precio_compra || !producto.stock) {
-      alert('Completa nombre, precio de venta, precio de compra y stock');
+      setMensaje({ text: 'Completa nombre, precio de venta, precio de compra y stock', type: 'error' });
       return;
     }
 
@@ -53,7 +56,7 @@ function NuevoProductoPage() {
         throw new Error(data.error || 'Error al guardar producto');
       }
 
-      alert('Producto guardado correctamente');
+      setMensaje({ text: 'Producto guardado correctamente', type: 'success' });
       setForm({
         nombre: '',
         codigo: '',
@@ -63,7 +66,7 @@ function NuevoProductoPage() {
         precioCompra: '',
       });
     } catch (error) {
-      alert(error.message);
+      setMensaje({ text: error.message, type: 'error' });
     }
   };
 
@@ -75,6 +78,8 @@ function NuevoProductoPage() {
           <h1>Nuevo producto</h1>
         </div>
       </div>
+
+      {mensaje && <StatusMessage type={mensaje.type}>{mensaje.text}</StatusMessage>}
 
       <form className="product-form" onSubmit={handleSubmit}>
         <div className="form-grid">
@@ -134,7 +139,8 @@ function NuevoProductoPage() {
             <input
               id="precioVenta"
               name="precioVenta"
-              type="number"
+              type="text"
+              inputMode="numeric"
               value={form.precioVenta}
               onChange={handleChange}
               placeholder="$0"
@@ -146,7 +152,8 @@ function NuevoProductoPage() {
             <input
               id="precioCompra"
               name="precioCompra"
-              type="number"
+              type="text"
+              inputMode="numeric"
               value={form.precioCompra}
               onChange={handleChange}
               placeholder="$0"

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import StatusMessage from '../components/StatusMessage';
 
 const STORAGE_KEY = 'tienda-password';
 
@@ -52,9 +53,7 @@ function ConfiguracionPage() {
           </button>
         </form>
 
-        {mensaje && (
-          <p style={{ marginTop: '14px', color: '#125a3b', fontWeight: 600 }}>{mensaje}</p>
-        )}
+        {mensaje && <StatusMessage type="success">{mensaje}</StatusMessage>}
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './InventarioPage.css';
+import StatusMessage from '../components/StatusMessage';
 
 const STORAGE_KEY = 'tienda-password';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -24,9 +25,13 @@ function InventarioPage() {
     try {
       const response = await fetch(`${API_URL}/api/productos`);
       const data = await response.json();
+      if (!response.ok || !Array.isArray(data)) {
+        throw new Error(data.error || 'No se pudo cargar el inventario');
+      }
       setProductos(data);
     } catch (error) {
       console.error('Error al cargar productos:', error);
+      setMensaje(error.message || 'No se pudo cargar el inventario');
     } finally {
       setLoading(false);
     }
@@ -179,7 +184,7 @@ function InventarioPage() {
         </div>
       </div>
 
-      {mensaje && <div className="inventory-toast">{mensaje}</div>}
+      {mensaje && <StatusMessage type={mensaje.includes('correct') || mensaje.includes('agregaron') || mensaje.includes('eliminado') ? 'success' : 'error'}>{mensaje}</StatusMessage>}
 
       <div className="inventory-toolbar">
         <input

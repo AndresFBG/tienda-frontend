@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import StatusMessage from '../components/StatusMessage';
 
 const STORAGE_KEY = 'tienda-password';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
@@ -145,9 +146,9 @@ function ReportesPage() {
       )}
 
       {loading ? (
-        <p>Cargando reportes...</p>
+        <StatusMessage>Cargando reportes...</StatusMessage>
       ) : error ? (
-        <p style={{ color: '#b91c1c' }}>{error}</p>
+        <StatusMessage type="error">{error}</StatusMessage>
       ) : (
         <>
           <div className="ventas-grid">

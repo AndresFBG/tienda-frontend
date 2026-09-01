@@ -67,6 +67,47 @@
   padding: 30px;
 }
 
+.status-message {
+  width: min(100%, 560px);
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid #cfe1e7;
+  border-radius: 12px;
+  background: #f5fbfc;
+  color: #285466;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(31, 78, 92, 0.08);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+  background: #5da9c2;
+}
+
+.status-success {
+  border-color: #9bd5b5;
+  background: #effbf3;
+  color: #17613d;
+}
+
+.status-success .status-dot { background: #2e9d63; }
+
+.status-error {
+  border-color: #f0b2b2;
+  background: #fff5f5;
+  color: #9b2626;
+}
+
+.status-error .status-dot { background: #d64545; }
+
 /* Tarjeta */
 .page-content {
   background: white;

@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import './VentasPage.css';
+import StatusMessage from '../components/StatusMessage';
+import { formatNumberInput, parseNumberInput } from '../utils/numberFormat';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -21,10 +23,17 @@ function VentasPage() {
 
   const cantidadInputRef = useRef(null);
 
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+  };
+
   const cargarProductos = async () => {
     try {
       const response = await fetch(`${API_URL}/api/productos`);
       const data = await response.json();
+      if (!response.ok || !Array.isArray(data)) {
+        throw new Error(data.error || 'No se pudieron cargar los productos');
+      }
       setProductosDisponibles(data.map((producto) => ({
         codigo: String(producto.codigo || 'SIN-CODIGO'),
         nombre: producto.nombre,
@@ -33,6 +42,7 @@ function VentasPage() {
       })));
     } catch (error) {
       console.error('Error al cargar productos para ventas:', error);
+      showToast(error.message || 'No se pudieron cargar los productos', 'error');
     }
   };
 
@@ -49,10 +59,6 @@ function VentasPage() {
 
     return () => clearTimeout(timer);
   }, [toast]);
-
-  const showToast = (message, type = 'success') => {
-    setToast({ message, type });
-  };
 
   const productoEncontrado = useMemo(() => {
     const texto = codigo.trim().toLowerCase();
@@ -92,7 +98,7 @@ function VentasPage() {
     return carrito.reduce((sum, item) => sum + item.cantidad, 0);
   }, [carrito]);
 
-  const efectivoRecibido = Number(efectivo || 0);
+  const efectivoRecibido = parseNumberInput(efectivo);
   const cambio = Math.max(efectivoRecibido - total, 0);
 
   const agregarProducto = () => {
@@ -232,9 +238,7 @@ function VentasPage() {
   return (
     <div className="page-content ventas-page">
       {toast && (
-        <div className={`toast ${toast.type === 'error' ? 'toast-error' : 'toast-success'}`}>
-          {toast.message}
-        </div>
+        <StatusMessage type={toast.type}>{toast.message}</StatusMessage>
       )}
 
       <div className="page-header">
@@ -331,10 +335,11 @@ function VentasPage() {
           <label className="money-input">
             Efectivo recibido
             <input
-              type="number"
+              type="text"
+              inputMode="numeric"
               min="0"
               value={efectivo}
-              onChange={(e) => setEfectivo(e.target.value)}
+              onChange={(e) => setEfectivo(formatNumberInput(e.target.value))}
               placeholder="0"
             />
           </label>
