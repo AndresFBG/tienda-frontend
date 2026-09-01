@@ -1,0 +1,248 @@
+.page-content {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+}
+
+.inventory-toast {
+  background: linear-gradient(135deg, #ebfff4, #d7f7e7);
+  border: 1px solid #8dd3af;
+  color: #125a3b;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-card {
+  width: min(100%, 420px);
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 22px 50px rgba(15, 23, 42, 0.18);
+  border: 1px solid #e7edf1;
+  padding: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #1f2d3d;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1.7rem;
+  color: #607b88;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  margin-bottom: 18px;
+}
+
+.modal-label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #355162;
+  font-weight: 600;
+}
+
+.modal-label input {
+  border: 1px solid #d8e6ec;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.modal-label input:focus {
+  outline: none;
+  border-color: #5da9c2;
+  box-shadow: 0 0 0 3px rgba(93, 169, 194, 0.15);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5da9c2;
+  font-weight: 700;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  color: #1f2d3d;
+  margin: 0;
+}
+
+.primary-button,
+.secondary-button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.primary-button {
+  background: #2f6f7e;
+  color: white;
+}
+
+.secondary-button {
+  background: #eaf5f8;
+  color: #2f6f7e;
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.inventory-toolbar {
+  margin-bottom: 18px;
+}
+
+.search-input {
+  width: min(100%, 420px);
+  border: 1px solid #d8e6ec;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #5da9c2;
+  box-shadow: 0 0 0 3px rgba(93, 169, 194, 0.15);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: #f7fbfc;
+  border: 1px solid #dfeef2;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.stat-card span {
+  display: block;
+  color: #597287;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.stat-card strong {
+  font-size: 1.8rem;
+  color: #1f2d3d;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e7edf1;
+}
+
+.inventory-table th {
+  color: #56707d;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.inventory-table td {
+  color: #1f2d3d;
+}
+
+.low-stock-row {
+  background: #fff1f2;
+}
+
+.low-stock-row td {
+  color: #991b1b;
+  font-weight: 700;
+}
+
+.inventory-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.delete-button {
+  background: #ffe3e6;
+  color: #9f1239;
+  border: 1px solid #f9b3bf;
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .page-content {
+    padding: 20px 16px;
+  }
+}
